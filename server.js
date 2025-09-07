@@ -2,6 +2,19 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const ffmpeg = require('fluent-ffmpeg');
+
+// Configurar FFmpeg paths para Railway
+if (process.env.FFMPEG_PATH) {
+  ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH);
+}
+if (process.env.FFPROBE_PATH) {
+  ffmpeg.setFfprobePath(process.env.FFPROBE_PATH);
+}
+
+// Configuración directa para Railway (donde FFmpeg está en /bin/)
+ffmpeg.setFfmpegPath('/bin/ffmpeg');
+ffmpeg.setFfprobePath('/bin/ffprobe');
+
 const fs = require('fs-extra');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
